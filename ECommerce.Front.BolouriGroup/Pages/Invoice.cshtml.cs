@@ -106,7 +106,7 @@ public class InvoiceModel(IPurchaseOrderService purchaseOrderService,
                             () => userService.SendInvoiceSms(
                                                         result.Message ?? "",
                                                         numbers,
-                                                        DateTime.Now.ToString("MM/dd/yyyy")) );
+                                                        DateTime.Now.ToString("MM/dd/yyyy")));
                         Code = result.Code.ToString();
                         Message = "سفارش شما با موفقیت ثبت شد";
                     }
@@ -174,7 +174,7 @@ public class InvoiceModel(IPurchaseOrderService purchaseOrderService,
                 PurchaseOrder.Transaction = new Transaction
                 {
                     RefId = res.Result.RetrivalRefNo,
-                    Amount = amount,
+                    Amount = amount / 10,
                     UserId = resultOrder.ReturnData.UserId
                 };
                 var resulPay = await purchaseOrderService.Pay(PurchaseOrder);
@@ -189,12 +189,12 @@ public class InvoiceModel(IPurchaseOrderService purchaseOrderService,
 
                     var numbers = configuration.GetSection("InvoiceNumbers:Numbers").Get<string[]>();
                     var job = BackgroundJob.Enqueue(
-                        ()=> userService.SendInvoiceSms(
+                        () => userService.SendInvoiceSms(
                         resulPay.Message ?? "",
                         numbers,
                         DateTime.Now.ToFa(("MM/dd/yyyy"))
                         ));
-              
+
                     Code = resulPay.Code.ToString();
                     Message = "سفارش شما با موفقیت ثبت شد";
                 }

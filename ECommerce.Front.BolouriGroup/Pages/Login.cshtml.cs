@@ -104,7 +104,7 @@ public class LoginModel(IUserService userService) : PageModel
 
     public async Task<JsonResult> OnPostUserLoginSubmit(string username, string password)
     {
-        if (DateTime.Now.Date > DateTime.Parse("2024-06-15"))
+        if (DateTime.Now.Date > DateTime.Parse("2024-07-30"))
         {
             return new JsonResult("Error");
         }
